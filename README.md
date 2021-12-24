@@ -27,7 +27,7 @@ public function __construct() {
     // self::LARGE_CHEST is a size of FakeInventory (for small chest just type self::SMALL_CHEST)
     // The "true" at the end is whether the FakeInventory should appear behind the player
     
-    parent::__construct("Test1", self::LARGE_CHEST, true);
+    parent::__construct("Test1", FakeInventorySize::LARGE_CHEST, true);
 }
 ```
 
@@ -102,7 +102,7 @@ class ExampleInventory extends FakeInventory {
 
     public function onTransaction(Player $player, Item $sourceItem, Item $targetItem, int $slot) : bool {
         if($sourceItem->getId() === ItemIds::GOLD_INGOT) {
-            $this->changeInventory($player, new SmallInventory());
+            $this->changeInventory($player, new YourInventory());
         }
 
         return true;
