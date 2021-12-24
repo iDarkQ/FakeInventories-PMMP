@@ -7,27 +7,27 @@
 - Fast opening without any delay
 - Opening a FakeInventory behind the player so the player cannot see it
 - Simple un-clicking item
-- Example petterns
+- Example patterns
 - Simple API
 - Tested on several servers
 
 ## Installation
 
-1. Download plugin by clicking [here](https://github.com/iDarkQ/FakeInventories/releases/download/1.0/FakeInventories_v1.phar)
+1. Download plugin by clicking [here](https://github.com/iDarkQ/FakeInventories-PMMP/archive/refs/heads/master.zip)
 2. Put the plugin into your plugins folder
 
 ## Usage
 
-### 🔻Create a file (or skip this steps and use the files that are already in the plugin)🔻
+### 🔻Create a file (or skip these steps and use the files that are already in the plugin)🔻
 
 ### Construct FakeInventory
 ```php
-public function __construct(Player $player) {
+public function __construct() {
     // "Test1" it's a title
     // self::LARGE_CHEST is a size of FakeInventory (for small chest just type self::SMALL_CHEST)
     // The "true" at the end is whether the FakeInventory should appear behind the player
     
-    parent::__construct($player, "Test1", self::LARGE_CHEST, true);
+    parent::__construct("Test1", self::LARGE_CHEST, true);
 }
 ```
 
@@ -35,7 +35,7 @@ public function __construct(Player $player) {
 ```php
 public function setItems() : void {
     //$this->setItem(slot, item);
-    $this->setItem(0, Item::get(Item::CHEST)->setCustomName("Test1"));
+    $this->setItem(0, VanillaItems::DIAMOND());
 }
 ```
 
@@ -80,28 +80,31 @@ $this->unClickItem($player);
 ```php
 <?php
 
-namespace fakeinventories\fakeinventory\inventories;
+declare(strict_types=1);
 
-use fakeinventories\fakeinventory\FakeInventory;
+namespace your\namespace;
+
+use fakeinventory\inventories\FakeInventory;
 use pocketmine\item\Item;
-use pocketmine\Player;
+use pocketmine\item\ItemIds;
+use pocketmine\item\VanillaItems;
+use pocketmine\player\Player;
 
-class TestInventory extends FakeInventory {
+class ExampleInventory extends FakeInventory {
 
-    public function __construct(Player $player) {
-        parent::__construct($player, "Test1", self::LARGE_CHEST);
+    public function __construct() {
+        parent::__construct("Second inventory");
     }
 
     public function setItems() : void {
-        $this->setItem(0, Item::get(Item::CHEST)->setCustomName("Test1"));
+        $this->setItem(0, VanillaItems::GOLD_INGOT());
     }
 
     public function onTransaction(Player $player, Item $sourceItem, Item $targetItem, int $slot) : bool {
+        if($sourceItem->getId() === ItemIds::GOLD_INGOT) {
+            $this->changeInventory($player, new SmallInventory());
+        }
 
-        if($sourceItem->getId() === Item::CHEST)
-            $this->changeInventory($player, (new YourFakeInventory($player)));
-
-        $this->unClickItem($player);
         return true;
     }
 }
