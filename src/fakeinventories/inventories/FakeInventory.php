@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace fakeinventories\inventories;
 
+use fakeinventories\Main;
 use fakeinventories\utils\TaskUtil;
 use pocketmine\block\Block;
 use pocketmine\block\inventory\BlockInventory;
@@ -115,7 +116,7 @@ abstract class FakeInventory extends SimpleInventory implements BlockInventory {
         if(!$this->hasChanged)
             $this->closeFor($who);
 
-        FakeInventoryManager::unsetInventory($who->getName());
+        Main::getInstance()->getFakeInventoryManager()->unsetInventory($who->getName());
 
         if(Server::getInstance()->isRunning()) {
             TaskUtil::sendTask(function() : void {
@@ -155,7 +156,7 @@ abstract class FakeInventory extends SimpleInventory implements BlockInventory {
         $this->sendAll($players, $pos);
 
         foreach($players as $player) {
-            FakeInventoryManager::setInventory($player->getName(), $this);
+            Main::getInstance()->getFakeInventoryManager()->setInventory($player->getName(), $this);
             $player->setCurrentWindow($this);
         }
     }

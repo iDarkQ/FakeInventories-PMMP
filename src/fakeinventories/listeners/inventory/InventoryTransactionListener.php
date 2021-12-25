@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace fakeinventories\listeners\inventory;
 
 use fakeinventories\inventories\FakeInventory;
-use fakeinventories\inventories\FakeInventoryManager;
 use fakeinventories\Main;
 use pocketmine\event\inventory\InventoryTransactionEvent;
 use pocketmine\event\Listener;
