@@ -18,8 +18,6 @@
 
 ## Usage
 
-### 🔻Create a file (or skip these steps and use the files that are already in the plugin)🔻
-
 ### Construct FakeInventory
 ```php
 public function __construct() {
