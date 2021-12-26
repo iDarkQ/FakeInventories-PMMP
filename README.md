@@ -22,7 +22,7 @@
 ```php
 public function __construct() {
     // "Test1" it's a title
-    // self::LARGE_CHEST is a size of FakeInventory (for small chest just type self::SMALL_CHEST)
+    // FakeInventorySize::LARGE_CHEST is a size of FakeInventory (for small chest just type FakeInventorySize::SMALL_CHEST)
     // The "true" at the end is whether the FakeInventory should appear behind the player
     
     parent::__construct("Test1", FakeInventorySize::LARGE_CHEST, true);
